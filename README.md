@@ -350,3 +350,70 @@ Two major classes
 2. NoSQL
 ## Feature/Capability comparison
 ![](assets/db-capabilities-compare-2.png)
+
+# Map Reduce
+Sample data
+![](assets/map-reduce-sample.png)
+
+- Map reduce is required when we want processing on entire dataset
+- In case of tweeter 200TB of data
+- It's not possible to write one job to do all the things
+- Job itself has to be sharded
+- That's whole concept of map/reduce
+- Map/Reduce provides bunch of stages of processing 
+
+Q. Product manage wants following reports
+![](assets/map-redue-sample-report.png)
+Ans: 
+If data size is small and entire data is stored in RDBMS/NoSQL then it is simple as below
+- Apply transformation function on user's birthday to get age range
+- Group by based on transformed user's birthday and then count(*) to get the result
+
+That's what essentially map/reduce is going to do. Since we can't run SQL on 200TB then expect to return data on time. 
+So only way to work is come up with stages to get the result
+It has following 
+## Mapper
+- Each mapper is on one machine running the task
+- It processes part of your input data
+- It can have multiple mapper
+
+To process 200TB of data, you can choose for example half TB of data to be processed by one mapper. 
+You will need 400 machines to run mapper to process half TB of data each.
+- Mapper takes input from Tweet table
+- Every mapper produce output
+- In Map/Reduce, its not like HashMap
+- Its like multi map
+- Same key can have multiple rows with different values
+- Output will be flipped
+- Same output from different mapper
+## Shuffle phase
+- It will take output from mapper as input
+- It will also take user table (user table is also sharded)
+- It will generate like table
+
+![](assets/map-reduce-example.png)
+
+- No one is waiting for these result
+- It may take time
+# Microservices pattern for Map/Reduce
+# Stream processing
+- Get stream of data
+- You want to process and produce result on real time
+- Batching of incoming item to avoid flux of incoming stream
+- Or have time window to batch the messages 
+- This pattern is called `micro batching`
+# Micro Batching/Stream processing
+Problem statement
+- Capture and measure latency of some services
+- You exposed micro services to accept the latency of services
+Let's assume that we want to measure following
+- count
+- avg
+
+![](assets/micro-batching-stream.png)
+- Apache storm is commercial available product
+
+# Key design tools
+- Micro Services
+- Map/Reduce
+- Micro Batching
