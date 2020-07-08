@@ -417,3 +417,8 @@ Let's assume that we want to measure following
 - Micro Services
 - Map/Reduce
 - Micro Batching
+# Hardware limitations
+- Read QPS: 2000
+- Write QPS: 200
+- Storage: 2 to 3 TB
+- 
